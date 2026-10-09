@@ -117,6 +117,19 @@ class ReservationController {
         vue('reservations/confirmation', ['resa' => $resa]);
     }
 
+    public function actionImprimer() {
+        exigerRole(['admin', 'agent', 'client']);
+        $id = (int)($_GET['id'] ?? 0);
+        $resa = $this->reservation->trouverComplet($id);
+        if (!$resa) {
+            die('Réservation introuvable.');
+        }
+        if (roleActuel() === 'client' && (int)$resa['id_client'] !== (int)idClientSession()) {
+            die('Accès refusé.');
+        }
+        require RACINE . '/views/reservations/imprimer.php';
+    }
+
     // Changer le statut : confirmer, payer (billetterie), utiliser, annuler
     public function actionStatut() {
         exigerRole(['admin', 'agent', 'client']);

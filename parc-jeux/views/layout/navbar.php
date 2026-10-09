@@ -5,33 +5,29 @@ $modeAffichage = $modeAffichage ?? (estPersonnel() ? 'admin' : 'public');
 ?>
 <?php if ($modeAffichage === 'admin'): ?>
 <aside class="sidebar" id="sidebar">
-    <a class="logo" href="<?= e(url('accueil')) ?>">🎡 FunPark</a>
+    <a class="logo" href="<?= e(url('accueil')) ?>">🎪 FunPark</a>
     <nav>
         <?php if ($role === 'admin'): ?>
-            <a href="<?= e(url('dashboard')) ?>">Tableau de bord</a>
-            <a href="<?= e(url('jeux')) ?>">Jeux</a>
-            <a href="<?= e(url('responsables')) ?>">Responsables</a>
-            <a href="<?= e(url('clients')) ?>">Clients</a>
-            <a href="<?= e(url('billets', 'types')) ?>">Tarifs</a>
-            <a href="<?= e(url('billets', 'achats')) ?>">Billetterie</a>
-            <a href="<?= e(url('billets', 'verifier')) ?>">Vérifier un billet</a>
-            <a href="<?= e(url('reservations')) ?>">Réservations</a>
-            <a href="<?= e(url('depenses')) ?>">Dépenses</a>
-            <a href="<?= e(url('maintenance')) ?>">Maintenance</a>
-            <a href="<?= e(url('utilisateurs')) ?>">Utilisateurs</a>
+            <a href="<?= e(url('dashboard')) ?>">📊 Tableau de bord</a>
+            <a href="<?= e(url('jeux')) ?>">🎢 Jeux</a>
+            <a href="<?= e(url('responsables')) ?>">🧑‍🔧 Responsables</a>
+            <a href="<?= e(url('clients')) ?>">👥 Clients</a>
+            <a href="<?= e(url('billets', 'types')) ?>">🏷️ Tarifs</a>
+            <a href="<?= e(url('reservations')) ?>">📅 Réservations</a>
+            <a href="<?= e(url('depenses')) ?>">💸 Dépenses</a>
+            <a href="<?= e(url('maintenance')) ?>">🔧 Maintenance</a>
+            <a href="<?= e(url('utilisateurs')) ?>">🔐 Utilisateurs</a>
         <?php elseif ($role === 'responsable'): ?>
-            <a href="<?= e(url('jeux')) ?>">Mes jeux</a>
-            <a href="<?= e(url('reservations')) ?>">Réservations</a>
-            <a href="<?= e(url('depenses')) ?>">Dépenses</a>
-            <a href="<?= e(url('maintenance')) ?>">Maintenance</a>
-            <a href="<?= e(url('billets', 'types')) ?>">Tarifs</a>
+            <a href="<?= e(url('jeux')) ?>">🎢 Mes jeux</a>
+            <a href="<?= e(url('reservations')) ?>">📅 Réservations</a>
+            <a href="<?= e(url('depenses')) ?>">💸 Dépenses</a>
+            <a href="<?= e(url('maintenance')) ?>">🔧 Maintenance</a>
+            <a href="<?= e(url('billets', 'types')) ?>">🏷️ Tarifs</a>
         <?php elseif ($role === 'agent'): ?>
-            <a href="<?= e(url('jeux')) ?>">Jeux</a>
-            <a href="<?= e(url('billets', 'types')) ?>">Tarifs</a>
-            <a href="<?= e(url('clients')) ?>">Clients</a>
-            <a href="<?= e(url('billets', 'achats')) ?>">Billetterie</a>
-            <a href="<?= e(url('billets', 'verifier')) ?>">Vérifier un billet</a>
-            <a href="<?= e(url('reservations')) ?>">Réservations</a>
+            <a href="<?= e(url('jeux')) ?>">🎢 Jeux</a>
+            <a href="<?= e(url('billets', 'types')) ?>">🏷️ Tarifs</a>
+            <a href="<?= e(url('clients')) ?>">👥 Clients</a>
+            <a href="<?= e(url('reservations')) ?>">📅 Réservations</a>
         <?php endif; ?>
     </nav>
     <div class="sidebar-user">
@@ -48,11 +44,11 @@ $modeAffichage = $modeAffichage ?? (estPersonnel() ? 'admin' : 'public');
     <main class="contenu contenu-admin">
 <?php else: ?>
 <header class="nav-publique">
-    <a class="logo" href="<?= e(url('accueil')) ?>">🎡 FunPark</a>
-    <button class="burger" type="button" id="burger" aria-label="Ouvrir le menu">☰</button>
+    <a class="logo" href="<?= e(url('accueil')) ?>">🎪 FunPark</a>
+    <button class="burger" type="button" id="burger-public" aria-label="Ouvrir le menu">☰</button>
     <nav id="menu">
         <a href="<?= e(url('accueil')) ?>">Accueil</a>
-        <a href="<?= e(url('jeux')) ?>">Jeux</a>
+        <a href="<?= e(url('jeux')) ?>">Nos Jeux</a>
         <a href="<?= e(url('billets', 'types')) ?>">Tarifs</a>
         <a href="<?= e(url('reservations', 'creer')) ?>">Réserver</a>
         <?php if (estConnecte() && $role === 'client'): ?>
@@ -62,12 +58,12 @@ $modeAffichage = $modeAffichage ?? (estPersonnel() ? 'admin' : 'public');
             <a href="<?= e($role === 'admin' ? url('dashboard') : url('jeux')) ?>">Espace interne</a>
         <?php endif; ?>
     </nav>
-    <div class="nav-compte">
+    <div class="nav-compte" id="nav-compte">
         <?php if (!estConnecte()): ?>
-            <a class="btn btn-connexion" href="<?= e(url('auth', 'login')) ?>">Connexion</a>
+            <a class="btn" href="<?= e(url('auth', 'login')) ?>">Connexion</a>
         <?php else: ?>
             <span class="nav-prenom"><?= e($_SESSION['user']['prenom']) ?></span>
-            <a class="lien-deconnexion" href="<?= e(url('auth', 'logout')) ?>">Déconnexion</a>
+            <a class="btn violet" href="<?= e(url('auth', 'logout')) ?>">Déconnexion</a>
         <?php endif; ?>
     </div>
 </header>

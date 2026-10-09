@@ -1,7 +1,7 @@
 <?php $titrePage = $titrePage ?? 'Inscription'; ?>
 <div class="login-boite">
     <h1>Créer un compte</h1>
-    <p>Inscrivez-vous pour finaliser une réservation. L’achat des billets se fait à la billetterie du parc.</p>
+    <p>Inscrivez-vous pour finaliser une réservation. L'achat des billets se fait à la billetterie du parc.</p>
     <?php if (isset($_SESSION['flash'])): ?>
         <div class="message <?= e($_SESSION['flash']['type']) ?>"><?= e($_SESSION['flash']['message']) ?></div>
         <?php unset($_SESSION['flash']); ?>

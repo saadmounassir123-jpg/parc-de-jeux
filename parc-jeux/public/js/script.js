@@ -2,12 +2,20 @@
 
 // 1. Menu burger (navigation publique ou sidebar admin)
 var burger = document.getElementById('burger');
+var burgerPublic = document.getElementById('burger-public');
+
 if (burger) {
     burger.addEventListener('click', function () {
-        var menu = document.getElementById('menu');
         var sidebar = document.getElementById('sidebar');
-        if (menu) menu.classList.toggle('ouvert');
         if (sidebar) sidebar.classList.toggle('ouvert');
+    });
+}
+if (burgerPublic) {
+    burgerPublic.addEventListener('click', function () {
+        var menu = document.getElementById('menu');
+        var navCompte = document.getElementById('nav-compte');
+        if (menu) menu.classList.toggle('ouvert');
+        if (navCompte) navCompte.classList.toggle('ouvert');
     });
 }
 
