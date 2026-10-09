@@ -1,0 +1,14 @@
+INSTALLATION SOUS XAMPP
+1. Copier le dossier "parc-jeux" dans  C:\xampp\htdocs\
+2. Démarrer Apache et MySQL dans le panneau XAMPP.
+3. Ouvrir http://localhost/phpmyadmin -> onglet "Importer" -> choisir database/parc_jeux.sql -> Exécuter.
+4. Ouvrir http://localhost/parc-jeux/
+   (si MySQL a un mot de passe, le modifier dans config/database.php)
+
+COMPTES DE DÉMONSTRATION (mot de passe : password)
+  admin@parcjeux.test      Administrateur
+  karim@parcjeux.test      Responsable de jeu
+  agent@parcjeux.test      Agent de vente / accueil
+  youssef@exemple.test     Client / visiteur
+
+Aucune bibliothèque externe n'est utilisée.
