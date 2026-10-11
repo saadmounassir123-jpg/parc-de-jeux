@@ -8,7 +8,7 @@ require RACINE . '/config/database.php';
 require RACINE . '/config/helpers.php';
 
 // Chargement des modèles
-foreach (['User', 'Jeu', 'Responsable', 'Client', 'Billet', 'Achat', 'Reservation', 'Recette', 'Depense', 'Maintenance'] as $modele) {
+foreach (['User', 'Jeu', 'Responsable', 'Client', 'Billet', 'Reservation', 'Recette', 'Depense', 'Maintenance'] as $modele) {
     require RACINE . '/models/' . $modele . '.php';
 }
 

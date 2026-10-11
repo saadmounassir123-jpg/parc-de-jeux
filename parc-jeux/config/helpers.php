@@ -28,6 +28,17 @@ function badge($valeur) {
     return '<span class="badge b-' . e($valeur) . '">' . e(libelle($valeur)) . '</span>';
 }
 
+function imageJeu($jeu) {
+    $nom = mb_strtolower(is_array($jeu) ? ($jeu['nom'] ?? '') : (string)$jeu);
+    if (strpos($nom, 'roue') !== false) return 'public/images/grande_roue.png';
+    if (strpos($nom, 'montagne') !== false || strpos($nom, 'russe') !== false) return 'public/images/montagnes_russes.png';
+    if (strpos($nom, 'tampon') !== false || strpos($nom, 'auto') !== false) return 'public/images/auto_tamponneuses.png';
+    if (strpos($nom, 'carrousel') !== false) return 'public/images/carrousel.png';
+    if (strpos($nom, 'balle') !== false || strpos($nom, 'piscine') !== false) return 'public/images/piscine_balles.png';
+    return 'public/images/grande_roue.png';
+}
+
+
 // Protège l'affichage contre les failles XSS
 function e($texte) {
     return htmlspecialchars((string)$texte, ENT_QUOTES, 'UTF-8');

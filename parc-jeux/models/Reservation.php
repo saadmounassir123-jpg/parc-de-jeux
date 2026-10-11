@@ -196,6 +196,12 @@ class Reservation {
     public function compter($debut, $fin) {
         $req = $this->pdo->prepare("SELECT COUNT(*) FROM reservation WHERE statut <> 'annulee' AND DATE(date_creation) BETWEEN ? AND ?");
         $req->execute([$debut, $fin]);
-        return $req->fetchColumn();
+        return (int)$req->fetchColumn();
+    }
+
+    public function compterPersonnes($debut, $fin) {
+        $req = $this->pdo->prepare("SELECT COALESCE(SUM(nombre_personnes), 0) FROM reservation WHERE statut <> 'annulee' AND DATE(date_creation) BETWEEN ? AND ?");
+        $req->execute([$debut, $fin]);
+        return (int)$req->fetchColumn();
     }
 }

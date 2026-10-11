@@ -4,24 +4,6 @@ class Recette {
     private $pdo;
     public function __construct($pdo) { $this->pdo = $pdo; }
 
-    public function creerPourAchat($idAchat) {
-        $req = $this->pdo->prepare("SELECT COUNT(*) FROM recette WHERE id_achat = ?");
-        $req->execute([$idAchat]);
-        if ($req->fetchColumn() > 0) return;   // éviter un doublon
-
-        $req = $this->pdo->prepare("SELECT montant_total FROM achat WHERE id_achat = ?");
-        $req->execute([$idAchat]);
-        $montant = $req->fetchColumn();
-
-        // Si la commande contient un abonnement, la source est "abonnement"
-        $req = $this->pdo->prepare("SELECT COUNT(*) FROM billet b JOIN type_billet t ON t.id_type_billet = b.id_type_billet
-                                    WHERE b.id_achat = ? AND t.nom = 'Abonnement'");
-        $req->execute([$idAchat]);
-        $source = ($req->fetchColumn() > 0) ? 'abonnement' : 'billet';
-
-        $req = $this->pdo->prepare("INSERT INTO recette (date_recette, montant, source, id_achat) VALUES (NOW(), ?, ?, ?)");
-        $req->execute([$montant, $source, $idAchat]);
-    }
 
     public function creerPourReservation($idReservation, $montant) {
         $req = $this->pdo->prepare("INSERT INTO recette (date_recette, montant, source, id_reservation) VALUES (NOW(), ?, 'reservation', ?)");

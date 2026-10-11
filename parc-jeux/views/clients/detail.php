@@ -7,15 +7,6 @@
     <dt>Email</dt><dd><?= e($c['email']) ?></dd>
     <dt>Type</dt><dd><?= e(libelle($c['type_client'])) ?></dd>
 </dl></div>
-<h2>Achats</h2>
-<div class="tableau"><table>
-    <tr><th>Commande</th><th>Date</th><th>Billets</th><th>Montant</th><th>Paiement</th></tr>
-    <?php foreach ($achats as $a): ?>
-    <tr><td><a href="<?= e(url('billets', 'detailAchat', ['id' => $a['id_achat']])) ?>"><?= e($a['numero_commande']) ?></a></td>
-        <td><?= dateFr($a['date_achat']) ?></td><td><?= (int)$a['nb_billets'] ?></td><td><?= montant($a['montant_total']) ?></td><td><?= badge($a['statut_paiement']) ?></td></tr>
-    <?php endforeach; ?>
-    <?php if (!$achats): ?><tr><td colspan="5">Aucun achat.</td></tr><?php endif; ?>
-</table></div>
 <h2>Réservations</h2>
 <div class="tableau"><table>
     <tr><th>N°</th><th>Visite</th><th>Jeux</th><th>Personnes</th><th>Montant</th><th>Statut</th></tr>

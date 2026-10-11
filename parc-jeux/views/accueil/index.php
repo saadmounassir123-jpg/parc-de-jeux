@@ -1,70 +1,93 @@
-<?php $titrePage = 'FunPark — Accueil'; ?>
+<?php $titrePage = 'FunPark — Accueil & Réservations d\'attractions'; ?>
 <section class="hero">
-    <h1>Bienvenue à FunPark 🎢</h1>
-    <p>Manèges, sensations et sourires : réservez vos jeux en ligne, puis retirez vos billets à la billetterie du parc.</p>
-    <a class="btn" href="<?= e(url('reservations', 'creer')) ?>">Réserver maintenant</a>
+    <div class="hero-badge">🌟 Le parc d'attractions n°1 de la région</div>
+    <h1>Sensations, Rires & Souvenirs inoubliables !</h1>
+    <p>Découvrez nos attractions sensationnelles, manèges familiaux et espaces enfants. Réservez votre visite gratuitement en ligne et profitez d'un accès rapide.</p>
+    <div class="hero-actions">
+        <a class="btn btn-hero" href="<?= e(url('reservations', 'creer')) ?>">🎯 Réserver ma visite gratuite</a>
+        <a class="btn btn-hero-alt" href="#nos-jeux">🎡 Découvrir les jeux</a>
+    </div>
+    <div class="hero-stats">
+        <div class="hero-stat"><strong>15+</strong><span>Attractions</span></div>
+        <div class="hero-stat"><strong>100%</strong><span>Sécurité garantie</span></div>
+        <div class="hero-stat"><strong>4.9 ★</strong><span>Avis visiteurs</span></div>
+    </div>
 </section>
 
-<?php if (function_exists('bandeauBilletterie')) bandeauBilletterie(); ?>
+<?php bandeauBilletterie(); ?>
 
 <section class="section" id="nos-jeux">
-    <h2 class="section-titre">Nos jeux</h2>
-    <p class="section-sous">Choisissez vos attractions selon l'âge, la durée et l'ambiance.</p>
+    <div class="section-header">
+        <div>
+            <h2 class="section-titre">Nos Attractions Phares</h2>
+            <p class="section-sous">Choisissez vos attractions selon l’âge, la durée et les sensations recherchées.</p>
+        </div>
+        <a class="lien-tout" href="<?= e(url('jeux')) ?>">Voir toutes les attractions (<?= count($jeux) ?>) →</a>
+    </div>
     <div class="grille-jeux">
         <?php foreach ($jeux as $j): ?>
-        <article class="carte-jeu" style="padding: 0; overflow: hidden; display: flex; flex-direction: column;">
-            <?php $imgFile = 'public/img/jeu_' . $j['id_jeu'] . '.jpg'; ?>
-            <?php if (file_exists(RACINE . '/' . $imgFile)): ?>
-                <img src="<?= e($imgFile) ?>" alt="<?= e($j['nom']) ?>" style="width: 100%; height: 200px; object-fit: cover;">
-            <?php else: ?>
-                <div style="width: 100%; height: 200px; background: #cbd5e1; display:flex; align-items:center; justify-content:center; color: white;">Image indisponible</div>
-            <?php endif; ?>
-            
-            <div style="padding: 1.5rem; flex: 1; display: flex; flex-direction: column;">
-                <div><?= badge($j['etat']) ?> <span class="badge" style="background:#e2e8f0; color:#475569;"><?= e($j['categorie']) ?></span></div>
-                <h3 style="margin-top: 1rem;"><a href="<?= e(url('jeux', 'detail', ['id' => $j['id_jeu']])) ?>"><?= e($j['nom']) ?></a></h3>
-                <p class="meta">Dès <?= (int)$j['age_minimum'] ?> ans • <?= (int)$j['duree_session'] ?> min</p>
-                <p class="prix" style="margin-top: auto; padding-top: 1rem;"><?= montant($j['tarif']) ?> / pers.</p>
-                <a class="btn violet" style="display:block; text-align:center;" href="<?= e(url('jeux', 'detail', ['id' => $j['id_jeu']])) ?>">Voir le détail</a>
+        <article class="carte-jeu">
+            <div class="carte-image-wrapper">
+                <img src="<?= e(imageJeu($j)) ?>" alt="<?= e($j['nom']) ?>" class="carte-jeu-img" loading="lazy">
+                <span class="badge-categorie"><?= e($j['categorie']) ?></span>
+                <div class="badge-etat-overlay"><?= badge($j['etat']) ?></div>
+            </div>
+            <div class="carte-jeu-corps">
+                <h3><a href="<?= e(url('jeux', 'detail', ['id' => $j['id_jeu']])) ?>"><?= e($j['nom']) ?></a></h3>
+                <p class="desc-courte"><?= e($j['description']) ?></p>
+                <div class="caracteristiques">
+                    <span>👶 Dès <?= (int)$j['age_minimum'] ?> ans</span>
+                    <span>⏱️ <?= (int)$j['duree_session'] ?> min/session</span>
+                    <span>👥 Capacité : <?= (int)$j['capacite'] ?> pers.</span>
+                </div>
+                <div class="carte-jeu-pied">
+                    <div class="prix-bloc">
+                        <span class="prix-libelle">Tarif par pers.</span>
+                        <strong class="prix"><?= montant($j['tarif']) ?></strong>
+                    </div>
+                    <a class="btn btn-sm" href="<?= e(url('jeux', 'detail', ['id' => $j['id_jeu']])) ?>">Découvrir</a>
+                </div>
             </div>
         </article>
         <?php endforeach; ?>
-        <?php if (!$jeux): ?><p>Aucun jeu n'est affiché pour le moment.</p><?php endif; ?>
+        <?php if (!$jeux): ?><p class="vide">Aucune attraction disponible pour le moment.</p><?php endif; ?>
     </div>
-    <p style="text-align:center;margin-top:2rem"><a class="btn" href="<?= e(url('jeux')) ?>">Voir tous les jeux</a></p>
 </section>
 
 <section class="section" id="tarifs">
-    <h2 class="section-titre">Tarifs</h2>
-    <p class="section-sous">Consultez les prix. L'achat se fait uniquement au guichet.</p>
+    <h2 class="section-titre">Grille Tarifaire du Guichet</h2>
+    <p class="section-sous">Consultez nos pass et formules d'accès au parc.</p>
     <div class="grille-tarifs">
         <?php foreach ($types as $t): ?>
         <article class="carte-tarif">
-            <span><?= e($t['nom']) ?></span>
-            <strong><?= montant($t['tarif']) ?></strong>
-            <small>Valable <?= (int)$t['duree_validite'] ?> jour(s)</small>
+            <div class="tarif-icon">🎫</div>
+            <h3><?= e($t['nom']) ?></h3>
+            <strong class="tarif-montant"><?= montant($t['tarif']) ?></strong>
+            <span class="tarif-validite">Valable <?= (int)$t['duree_validite'] ?> jour(s)</span>
+            <a class="btn btn-sm gris" href="<?= e(url('reservations', 'creer')) ?>">Réserver</a>
         </article>
         <?php endforeach; ?>
     </div>
 </section>
 
 <section class="section">
-    <h2 class="section-titre">Comment ça marche ?</h2>
+    <h2 class="section-titre">Comment préparer votre journée</h2>
     <div class="etapes">
         <article class="etape">
             <div class="num">1</div>
-            <h3>Je réserve en ligne</h3>
-            <p>Choisissez votre date, nombre de personnes et jeux. C'est gratuit et sans paiement.</p>
+            <h3>Réservez en ligne</h3>
+            <p>Choix de la date, du nombre de personnes et de vos jeux favoris. C'est 100% gratuit !</p>
         </article>
         <article class="etape">
             <div class="num">2</div>
-            <h3>Je me présente à la billetterie</h3>
-            <p>Un agent du parc confirme votre réservation à l'aide de votre numéro.</p>
+            <h3>Présentez votre numéro</h3>
+            <p>À votre arrivée, communiquez votre code de réservation à l'accueil du guichet.</p>
         </article>
         <article class="etape">
             <div class="num">3</div>
-            <h3>J'achète mes billets et je profite</h3>
-            <p>Paiement sur place (espèces ou carte), puis place aux attractions !</p>
+            <h3>Réglez et Amusez-vous</h3>
+            <p>Règlement par espèces ou carte bancaire à l'accueil pour accéder directement aux attractions.</p>
         </article>
     </div>
 </section>
+

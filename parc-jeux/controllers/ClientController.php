@@ -17,9 +17,10 @@ class ClientController {
         $c = $this->client->trouver((int)($_GET['id'] ?? 0));
         if (!$c) { flash('erreur', 'Client introuvable.'); redirect(url('clients')); }
         $vide = ['date_debut' => '', 'date_fin' => '', 'statut' => '', 'q' => '', 'id_client' => '', 'id_jeu' => '', 'id_responsable' => ''];
-        vue('clients/detail', ['c' => $c,
-            'achats' => (new Achat($this->pdo))->tous($vide, $c['id_client']),
-            'reservations' => (new Reservation($this->pdo))->tous($vide, $c['id_client'])]);
+        vue('clients/detail', [
+            'c' => $c,
+            'reservations' => (new Reservation($this->pdo))->tous($vide, $c['id_client']),
+        ]);
     }
 
     public function actionAjouter()  { $this->formulaire(null); }

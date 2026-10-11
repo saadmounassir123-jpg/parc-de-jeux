@@ -36,7 +36,7 @@ class DashboardController {
             'dateDebut' => $dateDebut, 'dateFin' => $dateFin,
             'totalJeux' => $jeu->compterTotal(), 'etats' => $jeu->compterParEtat(),
             'nbReservations' => (new Reservation($this->pdo))->compter($debut, $fin),
-            'nbBillets' => (new Achat($this->pdo))->compterBillets($debut, $fin),
+            'nbVisiteurs' => (new Reservation($this->pdo))->compterPersonnes($debut, $fin),
             'totalRecettes' => $totalRecettes, 'totalDepenses' => $totalDepenses,
             'resultat' => $totalRecettes - $totalDepenses,
             'sources' => $recette->parSource($debut, $fin),

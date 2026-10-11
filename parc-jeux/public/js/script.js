@@ -2,20 +2,12 @@
 
 // 1. Menu burger (navigation publique ou sidebar admin)
 var burger = document.getElementById('burger');
-var burgerPublic = document.getElementById('burger-public');
-
 if (burger) {
     burger.addEventListener('click', function () {
-        var sidebar = document.getElementById('sidebar');
-        if (sidebar) sidebar.classList.toggle('ouvert');
-    });
-}
-if (burgerPublic) {
-    burgerPublic.addEventListener('click', function () {
         var menu = document.getElementById('menu');
-        var navCompte = document.getElementById('nav-compte');
+        var sidebar = document.getElementById('sidebar');
         if (menu) menu.classList.toggle('ouvert');
-        if (navCompte) navCompte.classList.toggle('ouvert');
+        if (sidebar) sidebar.classList.toggle('ouvert');
     });
 }
 
@@ -55,21 +47,6 @@ function formaterMontant(valeur) {
     return valeur.toFixed(2).replace('.', ',') + ' DH';
 }
 
-// 5. Vente de billets : calcul du total en direct
-var quantites = document.querySelectorAll('.quantite');
-if (quantites.length > 0) {
-    var calculerTotalAchat = function () {
-        var total = 0;
-        quantites.forEach(function (champ) {
-            var sousTotal = (parseInt(champ.value) || 0) * parseFloat(champ.getAttribute('data-prix'));
-            champ.closest('tr').querySelector('.sous-total').textContent = formaterMontant(sousTotal);
-            total += sousTotal;
-        });
-        document.getElementById('total-achat').textContent = formaterMontant(total);
-    };
-    quantites.forEach(function (champ) { champ.addEventListener('input', calculerTotalAchat); });
-    calculerTotalAchat();
-}
 
 // 6. Réservation : montant estimé = somme des tarifs des jeux x nombre de personnes
 var jeuxChoisis = document.querySelectorAll('.jeu-choisi');
