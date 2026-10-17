@@ -1,0 +1,36 @@
+INSTALLATION SOUS XAMPP
+1. Copier le dossier "parc-jeux" dans  C:\xampp\htdocs\
+2. Démarrer Apache et MySQL dans le panneau XAMPP.
+3. Ouvrir http://localhost/phpmyadmin -> onglet "Importer" -> choisir database/parc_jeux.sql -> Exécuter.
+4. Ouvrir http://localhost/parc-jeux/
+   (si MySQL a un mot de passe, le modifier dans config/database.php)
+
+COMPTES DE DÉMONSTRATION (mot de passe : password)
+  admin@parcjeux.test      Administrateur
+  karim@parcjeux.test      Responsable de jeu
+  agent@parcjeux.test      Agent de vente / accueil
+  youssef@exemple.test     Client / visiteur
+
+FONCTIONNALITÉS AJOUTÉES :
+1. Achat de billets en ligne :
+   - Sélection des pass et formules (Adulte, Enfant, Famille, Pass journée, etc.)
+   - Choix des quantités et de la date de visite
+   - Génération de e-billets individuels avec codes-barres et impression / téléchargement
+
+2. Système de paiement complet :
+   - Paiement en ligne sécurisé par Carte Bancaire (Visa, Mastercard, CMI avec simulation de validation)
+   - Option de règlement en espèces au guichet du parc
+   - Virement bancaire / paiement mobile
+   - Reçu officiel et mise à jour automatique des recettes financières dans le tableau de bord
+
+3. Promotions et codes promotionnels :
+   - Module d'administration pour créer, modifier, activer/désactiver et supprimer des promotions
+   - Réduction en pourcentage (%) ou en montant fixe (DH) avec date de validité et minimum d'achat
+   - Page publique des bons plans et application directe au panier et aux réservations
+   - Codes promo disponibles :
+       * FUN20        : -20% dès 120 DH d'achat
+       * BIENVENUE10  : -10% dès 50 DH d'achat
+       * SUMMER50     : -50 DH dès 250 DH d'achat
+       * FAMILLE15    : -15% dès 100 DH d'achat
+
+Aucune bibliothèque externe n'est utilisée (PHP / MySQL / HTML5 / CSS3 / Vanilla JS).
