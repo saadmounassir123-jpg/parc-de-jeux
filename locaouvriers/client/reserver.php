@@ -5,8 +5,15 @@ $titre = 'Réserver';
 
 $metiers = $pdo->query('SELECT * FROM trades ORDER BY nom')->fetchAll();
 
-// Valeurs du formulaire (le métier peut venir de la page d'accueil)
-$f = ['metier' => (int)($_GET['metier'] ?? 0), 'nb' => 1, 'debut' => '', 'fin' => '', 'adresse' => '', 'description' => ''];
+// Valeurs du formulaire (pré-remplissage depuis l'accueil ou le simulateur)
+$f = [
+    'metier'      => (int)($_GET['metier'] ?? 0),
+    'nb'          => max(1, (int)($_GET['nb'] ?? 1)),
+    'debut'       => $_GET['debut'] ?? date('Y-m-d'),
+    'fin'         => $_GET['fin'] ?? ($_GET['debut'] ?? date('Y-m-d')),
+    'adresse'     => '',
+    'description' => ''
+];
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $f = [

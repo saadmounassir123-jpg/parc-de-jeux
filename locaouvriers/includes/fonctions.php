@@ -126,3 +126,31 @@ function badge($statut) {
     ];
     return '<span class="badge ' . e($statut) . '">' . e($noms[$statut] ?? $statut) . '</span>';
 }
+
+// Photo représentative du métier
+function photo_metier($nom) {
+    $map = [
+        'Jardinier'          => 'metier-jardinier.jpg',
+        'Plombier'           => 'metier-plombier.jpg',
+        'Agent de sécurité'  => 'metier-securite.jpg',
+        'Électricien'        => 'metier-electricien.jpg',
+        'Peintre'            => 'metier-peintre.jpg',
+        'Maçon'              => 'metier-macon.jpg',
+        'Menuisier'          => 'metier-menuisier.jpg',
+        'Nettoyage'          => 'metier-nettoyage.jpg',
+    ];
+    $fichier = $map[$nom] ?? 'metier-peintre.jpg';
+    return BASE . '/assets/images/' . $fichier;
+}
+
+// Description marketing séduisante pour chaque métier
+function description_metier($nom) {
+    $descriptions = [
+        'Jardinier'         => 'Taille de haies, tonte, plantation, débroussaillage et entretien complet de vos espaces verts.',
+        'Plombier'          => 'Réparation de fuites urgentes, installation de sanitaires, robinetterie et chauffe-eau.',
+        'Agent de sécurité' => 'Gardiennage de propriété, surveillance d\'événements, contrôle d\'accès et rondes de nuit.',
+        'Électricien'       => 'Dépannage tableau électrique, pose d\'éclairage moderne, câblage et mise aux normes de sécurité.',
+        'Peintre'           => 'Peinture intérieure & extérieure, finitions soignées, pose d\'enduit et rénovation murs & plafonds.',
+    ];
+    return $descriptions[$nom] ?? 'Ouvrier hautement qualifié, expérimenté et outillé pour vos besoins au quotidien.';
+}
